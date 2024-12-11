@@ -946,7 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7d4157807efa742b89edda5e46c1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradePrefab: {fileID: 2503365793410501268, guid: 3e4e51fa96d0040459bd7037f0b7caa0, type: 3}
+  gradePrefab: {fileID: 5168264536905565269, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

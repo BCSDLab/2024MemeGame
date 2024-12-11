@@ -17,10 +17,22 @@ public class HolderController : MonoBehaviour
     public void DropGrade()
     {
         Debug.Log(currentGrade);
-        currentGrade.GetComponent<CircleCollider2D>().enabled = true;
+        AwakeBlock();
         currentGrade.transform.SetParent(null);
-        currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
         currentGrade = Instantiate(gradePrefab, transform);
+        SleepBlock();
+    }
+
+    private void AwakeBlock()
+    {
+        currentGrade.GetComponent<CircleCollider2D>().enabled = true;
+        currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
+    }
+
+    private void SleepBlock()
+    {
+        currentGrade.GetComponent<CircleCollider2D>().enabled = false;
+        currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.StartAsleep;
     }
 
 }

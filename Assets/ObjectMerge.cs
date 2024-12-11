@@ -20,7 +20,7 @@ public class ObjectMerge : MonoBehaviour
 
     private void SetIsMergeTrue() { isMerge = true; }
 
-    IEnumerator InstantiateNextLevelObject(ObjectMerge other)
+    private void InstantiateNextLevelObject(ObjectMerge other)
     {
         SetIsMergeTrue();
         other.SetIsMergeTrue();
@@ -30,10 +30,10 @@ public class ObjectMerge : MonoBehaviour
         Destroy(other.gameObject);
 
         //새 객체 생성
-        Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
-
+        GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
+        newGrade.GetComponent<CircleCollider2D>().enabled = true;
+        newGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
         //두 객체 삭제
-        yield return null;
         Destroy(gameObject);
     }
 
@@ -50,10 +50,11 @@ public class ObjectMerge : MonoBehaviour
         {
             if ((this.level == other.level) && (level < maxLevel + 1) && !isMerge && !other.isMerge)      //충돌 로직 체크
             {
-                if (this.transform.position.x < other.transform.position.x)    //한 오브젝트만 준비
+                if (this.transform.position.x < other.transform.position.x 
+                    || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
                 {
                     Debug.Log("3");
-                    StartCoroutine(InstantiateNextLevelObject(other));
+                    InstantiateNextLevelObject(other);
                 }
             }
         }
