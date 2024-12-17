@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4824741234678921084}
   - component: {fileID: 2496312040496943390}
   m_Layer: 0
-  m_Name: Level 0
+  m_Name: Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,4 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  nextLevelObjectPrefab: {fileID: 8946693220687830359, guid: 7ba752e27e1f5da42bc8db7bd0278199, type: 3}
+  nextLevelObjectPrefab: {fileID: 923300179591872574, guid: 7ba752e27e1f5da42bc8db7bd0278199, type: 3}

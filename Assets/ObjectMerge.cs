@@ -48,7 +48,7 @@ public class ObjectMerge : MonoBehaviour
 
         if(other != null)      //타입 체크
         {
-            if ((this.level == other.level) && (level < maxLevel + 1) && !isMerge && !other.isMerge)      //충돌 로직 체크
+            if ((this.level == other.level) && (level < maxLevel) && !isMerge && !other.isMerge)      //충돌 로직 체크
             {
                 if (this.transform.position.x < other.transform.position.x 
                     || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
