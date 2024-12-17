@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveDir = Vector2.zero;
 
-    private void Awake()
+    private void Update()
     {
+        Move();
     }
 
-    private void Update()
+    private void Move()
     {
         Vector2 currSpeed = moveDir * moveSpeed * Time.deltaTime;
         transform.position += new Vector3(currSpeed.x, currSpeed.y, 0);
