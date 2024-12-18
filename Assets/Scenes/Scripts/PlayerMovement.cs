@@ -19,6 +19,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 currSpeed = moveDir * moveSpeed * Time.deltaTime;
         transform.position += new Vector3(currSpeed.x, currSpeed.y, 0);
+        if(transform.position.x >= rightMaxDistance)
+        {
+            transform.position = new Vector3(rightMaxDistance, transform.position.y, 0);
+        }
+        else if (transform.position.x <= leftMaxDistance)
+        {
+            transform.position = new Vector3(leftMaxDistance, transform.position.y, 0);
+        }
     }
 
     public void OnMove(InputValue value)
