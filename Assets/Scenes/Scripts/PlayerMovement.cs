@@ -10,6 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveDir = Vector2.zero;
 
+    private void Start()
+    {
+        rightMaxDistance = 3.1f;
+        leftMaxDistance = -2f;
+    }
+
     private void Update()
     {
         Move();
