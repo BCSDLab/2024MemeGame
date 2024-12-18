@@ -7,10 +7,14 @@ public class HolderController : MonoBehaviour
 
     private void Start()
     {
+        ObjectMerge.OnIsCollidedChanged += GetNextGrade;
+
         currentGrade = Instantiate(gradePrefab, transform);
         currentGrade.GetComponent<CircleCollider2D>().enabled = false;
         currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.StartAsleep;
     }
+
+    public GameObject GetCurrentGrade() { return  currentGrade; }
 
     public void DropGrade()
     {

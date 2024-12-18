@@ -14,6 +14,9 @@ public class ObjectMerge : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public delegate void IsCollidedChanged();
+    public static event IsCollidedChanged OnIsCollidedChanged;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,7 +25,12 @@ public class ObjectMerge : MonoBehaviour
     public bool IsCollided
     {
         get { return isCollided; }
-        private set { isCollided = value; }
+        private set 
+        { 
+            isCollided = value; 
+            if(value == true)
+                OnIsCollidedChanged?.Invoke();
+        }
     }
 
     private void SetIsMergeTrue() { isMerge = true; }
