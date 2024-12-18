@@ -7,6 +7,7 @@ public class ObjectMerge : MonoBehaviour
     [SerializeField] private int level = 0;
 
     private static int maxLevel = 8;
+    private bool isCollided = false;
     private bool isMerge = false;
 
     [SerializeField] private GameObject nextLevelObjectPrefab;
@@ -16,6 +17,12 @@ public class ObjectMerge : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public bool IsCollided
+    {
+        get { return isCollided; }
+        private set { isCollided = value; }
     }
 
     private void SetIsMergeTrue() { isMerge = true; }
@@ -31,6 +38,7 @@ public class ObjectMerge : MonoBehaviour
 
         //货 按眉 积己
         GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
+        newGrade.GetComponent<ObjectMerge>().IsCollided = true;
         newGrade.GetComponent<CircleCollider2D>().enabled = true;
         newGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
         //滴 按眉 昏力
@@ -44,6 +52,8 @@ public class ObjectMerge : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        IsCollided = true;
+
         ObjectMerge other = collision.gameObject.GetComponent<ObjectMerge>();
 
         if(other != null)      //鸥涝 眉农
