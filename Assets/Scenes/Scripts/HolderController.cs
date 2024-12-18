@@ -2,33 +2,31 @@ using UnityEngine;
 
 public class HolderController : MonoBehaviour
 {
-    [SerializeField] public GameObject gradePrefab;
+    public GameObject gradePrefab;
+    public NextGradeGenerator generator;
     private GameObject currentGrade;
 
     private void Start()
     {
-        ObjectMerge.OnIsCollidedChanged += GetNextGrade;
+        ObjectMerge.OnIsCollidedChanged += SetToNextGrade;
 
-        currentGrade = Instantiate(gradePrefab, transform);
+        currentGrade = Instantiate(generator.GetNextGrade(), transform);
+
         currentGrade.GetComponent<CircleCollider2D>().enabled = false;
         currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.StartAsleep;
     }
 
-    public GameObject GetCurrentGrade() { return  currentGrade; }
-
     public void DropGrade()
     {
-        Debug.Log(currentGrade);
-
         currentGrade.GetComponent<CircleCollider2D>().enabled = true;
         currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
 
         currentGrade.transform.SetParent(null);
     }
 
-    public void GetNextGrade()
+    public void SetToNextGrade()
     {
-        currentGrade = Instantiate(gradePrefab, transform);
+        currentGrade = Instantiate(generator.GetNextGrade(), transform);
         currentGrade.GetComponent<CircleCollider2D>().enabled = false;
         currentGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.StartAsleep;
     }

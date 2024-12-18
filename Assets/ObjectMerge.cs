@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -20,6 +21,8 @@ public class ObjectMerge : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
+        text.text = this.name.Split('(')[0];
     }
 
     public bool IsCollided
@@ -47,8 +50,6 @@ public class ObjectMerge : MonoBehaviour
         //货 按眉 积己
         GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
         newGrade.GetComponent<ObjectMerge>().IsCollided = true;
-        newGrade.GetComponent<CircleCollider2D>().enabled = true;
-        newGrade.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
         //滴 按眉 昏力
         Destroy(gameObject);
     }
