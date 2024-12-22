@@ -23,8 +23,6 @@ public class PlayerMovement : MonoBehaviour
         leftMaxDistance = -2.1f;
 
         playerAction = GetComponent<PlayerInput>();
-        playerActionMap = playerAction.actions.FindActionMap("Player");
-        uiActionMap = playerAction.actions.FindActionMap("UI");
     }
 
     private void Update()
