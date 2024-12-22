@@ -1,23 +1,35 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float rightMaxDistance;
-    public float leftMaxDistance;
-    public float moveSpeed;
+    private float rightMaxDistance;
+    private float leftMaxDistance;
+    [SerializeField] private float moveSpeed;
+
+    private PlayerInput playerAction;
     [SerializeField] private HolderController holder;
+    [SerializeField] private GameObject pauseUI;
+
+
+    public static bool isPaused { get; private set; }
 
     private Vector2 moveDir = Vector2.zero;
 
     private void Start()
     {
-        rightMaxDistance = 3.2f;
-        leftMaxDistance = -2.2f;
+        rightMaxDistance = 3.1f;
+        leftMaxDistance = -2.1f;
+
+        playerAction = GetComponent<PlayerInput>();
+        playerActionMap = playerAction.actions.FindActionMap("Player");
+        uiActionMap = playerAction.actions.FindActionMap("UI");
     }
 
     private void Update()
     {
+        if(isPaused) { return; }
         Move();
     }
 
@@ -40,8 +52,26 @@ public class PlayerMovement : MonoBehaviour
         moveDir = value.Get<Vector2>();
     }
 
-    public void OnDrop(InputValue value)
+    public void OnDrop()
     {
         holder.DropGrade();
     }
+
+    public void OnPause()
+    {
+        isPaused = !isPaused;
+        if(isPaused)
+        {
+            pauseUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            pauseUI.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
+
+
+
 }

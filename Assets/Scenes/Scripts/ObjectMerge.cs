@@ -63,7 +63,6 @@ public class ObjectMerge : MonoBehaviour
                 if (this.transform.position.x < other.transform.position.x 
                     || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
                 {
-                    Debug.Log("3");
                     InstantiateNextLevelObject(other);
                 }
             }

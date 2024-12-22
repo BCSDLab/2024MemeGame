@@ -4,47 +4,52 @@ public class NextGradeGenerator : MonoBehaviour
 {
     const int initGradeCount = 4;
 
+    [SerializeField] private NextGradeUI nextGradeUI;
     [SerializeField] GameObject[] initialGradesPrefabs = new GameObject[initGradeCount];
-    private int[] gradeTable = new int[initGradeCount];
+    private readonly int[] gradeProbabilityTable = new int[initGradeCount];
 
-    private GameObject currentNextGrade;
+    public GameObject nextGrade { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         InitTable();
-        currentNextGrade = setNextRandomGrade();
+        nextGrade = GenerateNextRandomGrade();
     }
 
     private void InitTable()
     {
-        gradeTable[0] = 30;
-        gradeTable[1] = 30;
-        gradeTable[2] = 25;
-        gradeTable[3] = 15;
+        gradeProbabilityTable[0] = 30;
+        gradeProbabilityTable[1] = 30;
+        gradeProbabilityTable[2] = 25;
+        gradeProbabilityTable[3] = 15;
     }
 
     public GameObject GetNextGrade()
     {
-        GameObject nextGrade = currentNextGrade;
-        currentNextGrade = setNextRandomGrade();
-        Debug.Log("current: " + nextGrade.name + " / next: " + currentNextGrade.name);
-        return nextGrade;
+        GameObject nextHoldGrade = nextGrade;
+        nextGrade = GenerateNextRandomGrade();
+        nextGradeUI.DisplayNextGrade(nextGrade.GetComponent<SpriteRenderer>().sprite, nextGrade.transform.localScale.x);
+        return nextHoldGrade;
     }
 
-    private GameObject setNextRandomGrade()
+    private GameObject GenerateNextRandomGrade()
     {
         int randNum = Random.Range(1, 101);
 
         for (int i = 0; i < initGradeCount; i++)
         {
-            if(randNum <= gradeTable[i])
+            if(randNum <= gradeProbabilityTable[i])
             {
                 return initialGradesPrefabs[i];
             }
-            randNum -= gradeTable[i];
+            randNum -= gradeProbabilityTable[i];
         }
         return null;
     }
 
+    private void DebugFunc()
+    {
+        Debug.Log("next: " + nextGrade.name);
+    }
 
 }
