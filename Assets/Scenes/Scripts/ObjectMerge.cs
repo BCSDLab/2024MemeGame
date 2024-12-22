@@ -8,33 +8,20 @@ public class ObjectMerge : MonoBehaviour
     [SerializeField] private int level = 0;
 
     private static int maxLevel = 8;
-    private bool isCollided = false;
+    public bool isCollided {  get; private set; }
     private bool isMerge = false;
 
     [SerializeField] private GameObject nextLevelObjectPrefab;
-
-    private Rigidbody2D rb;
 
     public delegate void IsCollidedChanged();
     public static event IsCollidedChanged OnIsCollidedChanged;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
         text.text = this.name.Split('(')[0];
     }
 
-    public bool IsCollided
-    {
-        get { return isCollided; }
-        private set 
-        { 
-            isCollided = value; 
-            if(value == true)
-                OnIsCollidedChanged?.Invoke();
-        }
-    }
 
     private void SetIsMergeTrue() { isMerge = true; }
 
@@ -49,7 +36,7 @@ public class ObjectMerge : MonoBehaviour
 
         //货 按眉 积己
         GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
-        newGrade.GetComponent<ObjectMerge>().IsCollided = true;
+        newGrade.GetComponent<ObjectMerge>().isCollided = true;
         //滴 按眉 昏力
         Destroy(gameObject);
     }
@@ -61,7 +48,11 @@ public class ObjectMerge : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        IsCollided = true;
+        if(isCollided == false)
+        {
+            isCollided = true;
+            OnIsCollidedChanged?.Invoke();
+        }
 
         ObjectMerge other = collision.gameObject.GetComponent<ObjectMerge>();
 

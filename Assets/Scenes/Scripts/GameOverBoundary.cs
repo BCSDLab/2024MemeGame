@@ -6,7 +6,7 @@ public class GameOverBoundary : MonoBehaviour
     {
         ObjectMerge obm = collision.gameObject.GetComponent<ObjectMerge>();
 
-        if(obm != null && obm.IsCollided)
+        if(obm != null && obm.isCollided)
         {
             Debug.Log("게임 종료!");
         }

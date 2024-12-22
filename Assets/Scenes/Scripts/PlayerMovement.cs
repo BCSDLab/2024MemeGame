@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        rightMaxDistance = 3.1f;
-        leftMaxDistance = -2f;
+        rightMaxDistance = 3.2f;
+        leftMaxDistance = -2.2f;
     }
 
     private void Update()
