@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private float leftMaxDistance;
     [SerializeField] private float moveSpeed;
 
-    private PlayerInput playerAction;
     [SerializeField] private HolderController holder;
     [SerializeField] private GameObject pauseUI;
 
@@ -22,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
         rightMaxDistance = 3.1f;
         leftMaxDistance = -2.1f;
 
-        playerAction = GetComponent<PlayerInput>();
     }
 
     private void Update()
