@@ -693,6 +693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   holder: {fileID: 1348241508}
+  pauseUI: {fileID: 747509423}
 --- !u!4 &705070268
 Transform:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747509424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -749,7 +750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 900}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &747509425
@@ -2795,8 +2796,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 50078961}
+  - {fileID: 1530296770}
   - {fileID: 705070268}
   - {fileID: 571245520}
   - {fileID: 917679875}
-  - {fileID: 1530296770}
   - {fileID: 696154136}
