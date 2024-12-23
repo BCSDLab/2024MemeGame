@@ -6,6 +6,7 @@ using UnityEngine.XR;
 public class ObjectMerge : MonoBehaviour
 {
     [SerializeField] private int level = 0;
+    [SerializeField] private int score = 0;
 
     private static int maxLevel = 8;
     public bool isCollided {  get; private set; }
@@ -15,6 +16,9 @@ public class ObjectMerge : MonoBehaviour
 
     public delegate void IsCollidedChanged();
     public static event IsCollidedChanged OnIsCollidedChanged;
+
+    public delegate void scoreChaged(int score);
+    public static event scoreChaged OnScoreChanged;
 
     private void Awake()
     {
@@ -63,6 +67,7 @@ public class ObjectMerge : MonoBehaviour
                 if (this.transform.position.x < other.transform.position.x 
                     || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
                 {
+                    OnScoreChanged?.Invoke(score * 2);
                     InstantiateNextLevelObject(other);
                 }
             }
