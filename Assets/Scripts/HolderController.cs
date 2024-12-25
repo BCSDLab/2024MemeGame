@@ -7,8 +7,13 @@ public class HolderController : MonoBehaviour
 
     private void Start()
     {
-        ObjectMerge.OnIsCollidedChanged += HoldNextGrade;
-        HoldNextGrade();
+        ObjectMerge.OnIsCollidedChanged += HoldNextMeme;
+        HoldNextMeme();
+    }
+
+    private void OnDestroy()
+    {
+        ObjectMerge.OnIsCollidedChanged -= HoldNextMeme;
     }
 
     public void DropGrade()
@@ -18,7 +23,7 @@ public class HolderController : MonoBehaviour
         currentMeme.transform.SetParent(null);
     }
 
-    private void HoldNextGrade()
+    private void HoldNextMeme()
     {
         currentMeme = Instantiate(generator.GetNextMeme(), transform);
         currentMeme.GetComponent<CircleCollider2D>().enabled = false;
