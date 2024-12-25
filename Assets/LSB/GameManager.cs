@@ -61,7 +61,12 @@ public class GameManager : MonoBehaviour
             SaveMaxScore();
     }
 
-    public void GameSceneLoad()
+    public void LoadStartScene()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void LoadGameScene()
     {
         StartCoroutine(LoadGameSceneAsync());
     }

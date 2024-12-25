@@ -964,7 +964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &333715055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3128,7 +3128,7 @@ GameObject:
   - component: {fileID: 1351218716}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4095,7 +4095,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1351218716}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GameSceneLoad
+        m_MethodName: LoadGameScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

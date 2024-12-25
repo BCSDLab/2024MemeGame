@@ -20,7 +20,7 @@ public class HolderController : MonoBehaviour
 
     private void HoldNextGrade()
     {
-        currentMeme = Instantiate(generator.GetNextGrade(), transform);
+        currentMeme = Instantiate(generator.GetNextMeme(), transform);
         currentMeme.GetComponent<CircleCollider2D>().enabled = false;
         currentMeme.GetComponent<Rigidbody2D>().Sleep();
     }

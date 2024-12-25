@@ -2,54 +2,59 @@ using UnityEngine;
 
 public class NextMemeGenerator : MonoBehaviour
 {
-    const int initGradeCount = 4;
+    const int initMemeCount = 4;
 
-    [SerializeField] private NextMemeUI nextGradeUI;
-    [SerializeField] GameObject[] initialGradesPrefabs = new GameObject[initGradeCount];
-    private readonly int[] gradeProbabilityTable = new int[initGradeCount];
+    [SerializeField] private NextMemeUI nextMemeUI;
+    [SerializeField] GameObject[] initialMemePrefabs = new GameObject[initMemeCount];
+    private readonly int[] memeProbabilityTable = new int[initMemeCount];
 
-    public GameObject nextGrade { get; private set; }
+    public GameObject nextMeme { get; private set; }
+    public GameObject nextG;
 
     private void Awake()
     {
         InitTable();
-        nextGrade = GenerateNextRandomGrade();
+        nextMeme = GenerateNextRandomMeme();
+    }
+
+    private void Update()
+    {
+        nextG = nextMeme;
     }
 
     private void InitTable()
     {
-        gradeProbabilityTable[0] = 30;
-        gradeProbabilityTable[1] = 30;
-        gradeProbabilityTable[2] = 25;
-        gradeProbabilityTable[3] = 15;
+        memeProbabilityTable[0] = 30;
+        memeProbabilityTable[1] = 30;
+        memeProbabilityTable[2] = 25;
+        memeProbabilityTable[3] = 15;
     }
 
-    public GameObject GetNextGrade()
+    public GameObject GetNextMeme()
     {
-        GameObject nextHoldGrade = nextGrade;
-        nextGrade = GenerateNextRandomGrade();
-        nextGradeUI.DisplayNextGrade(nextGrade.GetComponent<SpriteRenderer>().sprite, nextGrade.transform.localScale.x);
-        return nextHoldGrade;
+        GameObject nextHoldMeme = nextMeme;
+        nextMeme = GenerateNextRandomMeme();
+        nextMemeUI.DisplayNextMeme(nextMeme.GetComponent<SpriteRenderer>().sprite, nextMeme.transform.localScale.x);
+        return nextHoldMeme;
     }
 
-    private GameObject GenerateNextRandomGrade()
+    private GameObject GenerateNextRandomMeme()
     {
         int randNum = Random.Range(1, 101);
 
-        for (int i = 0; i < initGradeCount; i++)
+        for (int i = 0; i < initMemeCount; i++)
         {
-            if(randNum <= gradeProbabilityTable[i])
+            if(randNum <= memeProbabilityTable[i])
             {
-                return initialGradesPrefabs[i];
+                return initialMemePrefabs[i];
             }
-            randNum -= gradeProbabilityTable[i];
+            randNum -= memeProbabilityTable[i];
         }
         return null;
     }
 
     private void DebugFunc()
     {
-        Debug.Log("next: " + nextGrade.name);
+        Debug.Log("next: " + nextMeme.name);
     }
-
 }
