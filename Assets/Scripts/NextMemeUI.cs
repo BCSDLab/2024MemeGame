@@ -3,18 +3,18 @@ using UnityEngine.UI;
 
 public class NextMemeUI : MonoBehaviour
 {
-    private Image nextGradeDisplay;
+    private Image nextMemeDisplay;
     private RectTransform rectTransform;
 
-    private void Awake()
+    private void Start()
     {
-        nextGradeDisplay = GetComponent<Image>();
+        nextMemeDisplay = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void DisplayNextGrade(Sprite sprite, float size)
+    public void DisplayNextMeme(Sprite sprite, float size)
     {
-        nextGradeDisplay.sprite = sprite;
+        nextMemeDisplay.sprite = sprite;
         rectTransform.localScale = Vector3.one * size;
     }
 }

@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rightMaxDistance = 3.1f;
         leftMaxDistance = -2.1f;
-
     }
 
     private void Update()
