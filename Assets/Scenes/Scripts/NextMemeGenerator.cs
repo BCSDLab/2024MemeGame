@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class NextGradeGenerator : MonoBehaviour
+public class NextMemeGenerator : MonoBehaviour
 {
     const int initGradeCount = 4;
 
-    [SerializeField] private NextGradeUI nextGradeUI;
+    [SerializeField] private NextMemeUI nextGradeUI;
     [SerializeField] GameObject[] initialGradesPrefabs = new GameObject[initGradeCount];
     private readonly int[] gradeProbabilityTable = new int[initGradeCount];
 

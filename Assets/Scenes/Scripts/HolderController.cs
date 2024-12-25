@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HolderController : MonoBehaviour
 {
-    public NextGradeGenerator generator;
-    private GameObject currentGrade;
+    public NextMemeGenerator generator;
+    private GameObject currentMeme;
 
     private void Start()
     {
@@ -13,16 +13,16 @@ public class HolderController : MonoBehaviour
 
     public void DropGrade()
     {
-        currentGrade.GetComponent<CircleCollider2D>().enabled = true;
-        currentGrade.GetComponent<Rigidbody2D>().WakeUp();
-        currentGrade.transform.SetParent(null);
+        currentMeme.GetComponent<CircleCollider2D>().enabled = true;
+        currentMeme.GetComponent<Rigidbody2D>().WakeUp();
+        currentMeme.transform.SetParent(null);
     }
 
     private void HoldNextGrade()
     {
-        currentGrade = Instantiate(generator.GetNextGrade(), transform);
-        currentGrade.GetComponent<CircleCollider2D>().enabled = false;
-        currentGrade.GetComponent<Rigidbody2D>().Sleep();
+        currentMeme = Instantiate(generator.GetNextGrade(), transform);
+        currentMeme.GetComponent<CircleCollider2D>().enabled = false;
+        currentMeme.GetComponent<Rigidbody2D>().Sleep();
     }
 
 }

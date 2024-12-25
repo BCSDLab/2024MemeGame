@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NextGradeUI : MonoBehaviour
+public class NextMemeUI : MonoBehaviour
 {
     private Image nextGradeDisplay;
     private RectTransform rectTransform;
