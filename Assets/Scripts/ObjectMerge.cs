@@ -7,6 +7,7 @@ public class ObjectMerge : MonoBehaviour
 {
     [SerializeField] private int level = 0;
     [SerializeField] private int score = 0;
+    [SerializeField] private AudioClip memeSound;
 
     private static int maxLevel = 8;
     public bool isCollided {  get; private set; }
@@ -20,12 +21,7 @@ public class ObjectMerge : MonoBehaviour
     public delegate void scoreChaged(int score);
     public static event scoreChaged OnScoreChanged;
 
-    private void Awake()
-    {
-        //TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
-        //Stext.text = this.name.Split('(')[0];
-    }
-
+    public AudioClip GetMemeClip() { return memeSound; }
 
     private void SetIsMergeTrue() { isMerge = true; }
 
@@ -41,6 +37,8 @@ public class ObjectMerge : MonoBehaviour
         //货 按眉 积己
         GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
         newGrade.GetComponent<ObjectMerge>().isCollided = true;
+        SoundManager.OnPlayMeme?.Invoke(newGrade.GetComponent<ObjectMerge>().GetMemeClip());
+
         //滴 按眉 昏力
         Destroy(gameObject);
     }

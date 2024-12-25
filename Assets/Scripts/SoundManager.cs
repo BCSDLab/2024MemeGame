@@ -2,13 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class Sound
-{
-    public string name;
-    public AudioClip clip;
-}
+using UnityEngine.Events;
 
 public class SoundManager : MonoBehaviour
 {
@@ -25,104 +19,104 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField] private AudioClip[] memeClips;
+    private Dictionary<AudioClip, int>  ClipDictionary = new Dictionary<AudioClip, int>();
+
     private float volume = 0.5f;
 
-    [SerializeField] private Sound[] Bgms;
-    [SerializeField] private Sound[] Effects;
+    [SerializeField] private AudioSource currentPlayingBgm;
+    [SerializeField] private AudioSource currentPlayingEffect;
+    [SerializeField] private AudioSource currentPlayingMeme;
 
-    [SerializeField] private List<AudioSource> currentPlayingSounds;
-
-    public static event Action<string> OnPlayBgm;
-    public static event Action<string> OnPlayEffectSound;
+    public static UnityEvent<AudioClip> OnPlayBgm = new UnityEvent<AudioClip>();
+    public static UnityEvent<AudioClip> OnPlayEffect = new UnityEvent<AudioClip>();
+    public static UnityEvent<AudioClip> OnPlayMeme = new UnityEvent<AudioClip>();
 
     private void Start()
     {
+        Instance();
+        InitClipDictionary();
         OnEnable();
         //PlayBgm("")
     }
 
     private void OnEnable()
     {
-        OnPlayBgm += PlayBgm;
-        OnPlayEffectSound += PlayEffectSound;
+        OnPlayBgm.AddListener(PlayBgm);
+        OnPlayEffect.AddListener(PlayEffect);
+        OnPlayMeme.AddListener(PlayMeme);
+    }
+
+    private void InitClipDictionary()
+    {
+        for(int i = 0; i < memeClips.Length; i++)
+        {
+            ClipDictionary.Add(memeClips[i], i);
+        }
     }
 
     public void ChangeVolume(float newVolume)
     {
         volume = newVolume;
 
-        foreach(var source in currentPlayingSounds)
-        {
-            source.volume = newVolume;
-        }
+        currentPlayingEffect.volume = volume;
+        currentPlayingMeme.volume = volume;
+        currentPlayingMeme.volume = volume;
     }
 
     public void PauseSounds()
     {
-        foreach(var source in currentPlayingSounds)
-        {
-            source.Pause();
-        }
+        currentPlayingBgm.Pause();
+        currentPlayingMeme.Pause();
     }
 
     public void ResumeSounds()
     {
-        foreach(var source in currentPlayingSounds)
+        currentPlayingBgm.Play();
+        currentPlayingMeme.Play();
+    }
+
+    public void PlayBgm(AudioClip bgmClip)
+    {
+        if(bgmClip != null)
         {
-            source.Play();
+            currentPlayingBgm.resource = bgmClip;
+            currentPlayingBgm.volume = volume;
+            currentPlayingBgm.loop = true;
+            currentPlayingBgm.Play();
         }
     }
 
-    public void PlayBgm(string soundName)
+    public void PlayEffect(AudioClip effectClip)
     {
-        foreach (var bgm in Bgms)
+        if (effectClip != null)
         {
-            if (bgm.name == soundName)
+            currentPlayingEffect.resource = effectClip;
+            currentPlayingEffect.volume = volume;
+            currentPlayingEffect.Play();
+        }
+    }
+
+    public void PlayMeme(AudioClip memeClip)
+    {
+        if (memeClip != null)
+        {
+            if(currentPlayingMeme.resource != null && currentPlayingMeme.isPlaying)
             {
-                if (currentPlayingSounds.Count == 0)
+                if (ClipDictionary[memeClip] > ClipDictionary[currentPlayingMeme.clip])
                 {
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    currentPlayingSounds.Add(audioSource);
+                    currentPlayingMeme.resource = memeClip;
+                    currentPlayingMeme.volume = volume;
+                    currentPlayingMeme.Play();
                 }
-
-                currentPlayingSounds[0].clip = bgm.clip;
-                currentPlayingSounds[0].volume =  volume;
-                currentPlayingSounds[0].loop = true;
-                currentPlayingSounds[0].Play();
-                return;
             }
-        }
-
-        Debug.Log("배경 사운드 플레이 오류!!");
-    }
-
-    public void PlayEffectSound(string soundName)
-    {
-        foreach (var effect in Effects)
-        {
-            if (effect.name == soundName)
+            else
             {
-                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                audioSource.clip = effect.clip;
-                audioSource.volume = volume;
-                audioSource.Play();
-
-                currentPlayingSounds.Add(audioSource);
-
-                StartCoroutine(RemoveAudioSourceAfterPlay(audioSource));
-                return;
+                currentPlayingMeme.resource = memeClip;
+                currentPlayingMeme.volume = volume;
+                currentPlayingMeme.Play();
             }
         }
-
-        Debug.Log("효과 사운드 플레이 오류!!");
     }
 
-    private IEnumerator RemoveAudioSourceAfterPlay(AudioSource audioSource)
-    {
-        while (audioSource.isPlaying)
-            yield return null;
-
-        currentPlayingSounds.Remove(audioSource);
-        Destroy(audioSource);
-    }
 }

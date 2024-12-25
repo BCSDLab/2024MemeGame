@@ -21,6 +21,7 @@ public class HolderController : MonoBehaviour
         currentMeme.GetComponent<CircleCollider2D>().enabled = true;
         currentMeme.GetComponent<Rigidbody2D>().WakeUp();
         currentMeme.transform.SetParent(null);
+        SoundManager.OnPlayMeme?.Invoke(currentMeme.GetComponent<ObjectMerge>().GetMemeClip());
     }
 
     private void HoldNextMeme()

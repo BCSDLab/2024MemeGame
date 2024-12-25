@@ -12,6 +12,14 @@ PrefabInstance:
       propertyPath: score
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: memeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ebde960b14132e447806546d825287c9, type: 3}
+    - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: effectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ebde960b14132e447806546d825287c9, type: 3}
     - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
