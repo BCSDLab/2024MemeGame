@@ -3502,6 +3502,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82df7c574f7398459c50333c5d6e6a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  memeClips:
+  - {fileID: 8300000, guid: ebde960b14132e447806546d825287c9, type: 3}
+  - {fileID: 8300000, guid: 729d4bfce94d08442a85df898ad109ba, type: 3}
+  - {fileID: 8300000, guid: 4f5a0c0fb6a6e9d4081c1215f7addb61, type: 3}
+  - {fileID: 8300000, guid: 0f5c23b48bce77d459329700bb2658a4, type: 3}
+  - {fileID: 8300000, guid: 80fe63f64fe849e43ab1cd64fd170e10, type: 3}
+  - {fileID: 8300000, guid: 9de9cf703ab992445af33ea725cb333f, type: 3}
+  - {fileID: 8300000, guid: ed606a91c07b1e34c9d4bbbc2a658f6e, type: 3}
+  - {fileID: 8300000, guid: bb5891bd44caa1b4f91faa1ee9ed98ef, type: 3}
+  - {fileID: 8300000, guid: 272f438dcec78414bb2a9157378bebb8, type: 3}
   currentPlayingBgm: {fileID: 1527383330}
   currentPlayingEffect: {fileID: 1527383332}
   currentPlayingMeme: {fileID: 1527383331}

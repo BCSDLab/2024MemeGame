@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource currentPlayingEffect;
     [SerializeField] private AudioSource currentPlayingMeme;
 
-    public static UnityEvent<AudioClip> OnPlayBgm = new UnityEvent<AudioClip>();
+    public static UnityEvent<bool> OnPlaySounds = new UnityEvent<bool>();
     public static UnityEvent<AudioClip> OnPlayEffect = new UnityEvent<AudioClip>();
     public static UnityEvent<AudioClip> OnPlayMeme = new UnityEvent<AudioClip>();
 
@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnEnable()
     {
-        OnPlayBgm.AddListener(PlayBgm);
+        OnPlaySounds.AddListener(PauseSounds);
         OnPlayEffect.AddListener(PlayEffect);
         OnPlayMeme.AddListener(PlayMeme);
     }
@@ -64,16 +64,18 @@ public class SoundManager : MonoBehaviour
         currentPlayingMeme.volume = volume;
     }
 
-    public void PauseSounds()
+    public void PauseSounds(bool isPause)
     {
-        currentPlayingBgm.Pause();
-        currentPlayingMeme.Pause();
-    }
-
-    public void ResumeSounds()
-    {
-        currentPlayingBgm.Play();
-        currentPlayingMeme.Play();
+        if(isPause)
+        {
+            currentPlayingBgm.Pause();
+            currentPlayingMeme.Pause();
+        }
+        else
+        {
+            currentPlayingBgm.UnPause();
+            currentPlayingMeme.UnPause();
+        }
     }
 
     public void PlayBgm(AudioClip bgmClip)
@@ -103,7 +105,7 @@ public class SoundManager : MonoBehaviour
         {
             if(currentPlayingMeme.resource != null && currentPlayingMeme.isPlaying)
             {
-                if (ClipDictionary[memeClip] > ClipDictionary[currentPlayingMeme.clip])
+                if (ClipDictionary[memeClip] >= ClipDictionary[currentPlayingMeme.clip])
                 {
                     currentPlayingMeme.resource = memeClip;
                     currentPlayingMeme.volume = volume;
