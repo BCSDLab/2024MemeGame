@@ -22,8 +22,8 @@ public class ObjectMerge : MonoBehaviour
 
     private void Awake()
     {
-        TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
-        text.text = this.name.Split('(')[0];
+        //TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
+        //Stext.text = this.name.Split('(')[0];
     }
 
 
