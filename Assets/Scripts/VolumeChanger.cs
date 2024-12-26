@@ -11,5 +11,6 @@ public class VolumeChanger : MonoBehaviour
         soundManager = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         slider = GetComponent<Slider>();
         slider.onValueChanged.AddListener(soundManager.ChangeVolume);
+        slider.value = soundManager.getVolume();
     }
 }

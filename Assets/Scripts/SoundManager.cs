@@ -59,6 +59,11 @@ public class SoundManager : MonoBehaviour
         OnPlayMeme.AddListener(PlayMeme);
     }
 
+    public float getVolume()
+    {
+        return volume;
+    }
+
     private void InitClipDictionary()
     {
         for(int i = 0; i < memeClips.Length; i++)
