@@ -18,6 +18,12 @@ public class ScoreUI : MonoBehaviour
         MaxScoreChanged.AddListener(ChangeMaxScoreUI);
     }
 
+    private void OnDestroy()
+    {
+        CurrentScoreChanged.RemoveListener(ChangeCurrentScoreUI);
+        MaxScoreChanged.RemoveListener(ChangeMaxScoreUI);
+    }
+
     public void ChangeCurrentScoreUI(int currentScore)
     {
         currentScoreUI.text = currentScore.ToString();

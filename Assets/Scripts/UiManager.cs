@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
+    [SerializeField] private Button startButton;
     [SerializeField] private GameObject panel;
     [SerializeField] private GameObject explanationPage;
     [SerializeField] private GameObject settingPage;
@@ -17,6 +19,8 @@ public class UiManager : MonoBehaviour
     void Start()
     {
         UiManager.SetMaxScoresUI.AddListener(SetMaxScores);
+        GameManager gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        startButton.onClick.AddListener(gameManager.LoadGameScene);
     }
 
     void Update()

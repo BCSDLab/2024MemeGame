@@ -7,6 +7,7 @@ public class ObjectMerge : MonoBehaviour
 {
     [SerializeField] private int level = 0;
     [SerializeField] private int score = 0;
+    [SerializeField] private AudioClip memeSound;
 
     private static int maxLevel = 8;
     public bool isCollided {  get; private set; }
@@ -20,12 +21,7 @@ public class ObjectMerge : MonoBehaviour
     public delegate void scoreChaged(int score);
     public static event scoreChaged OnScoreChanged;
 
-    private void Awake()
-    {
-        //TextMeshPro text = GetComponentInChildren<TextMeshPro>().GetComponent<TextMeshPro>();
-        //Stext.text = this.name.Split('(')[0];
-    }
-
+    public AudioClip GetMemeClip() { return memeSound; }
 
     private void SetIsMergeTrue() { isMerge = true; }
 
@@ -41,6 +37,8 @@ public class ObjectMerge : MonoBehaviour
         //새 객체 생성
         GameObject newGrade = Instantiate(nextLevelObjectPrefab, middleLocation, Quaternion.identity);
         newGrade.GetComponent<ObjectMerge>().isCollided = true;
+        SoundManager.OnPlayMeme?.Invoke(newGrade.GetComponent<ObjectMerge>().GetMemeClip());
+
         //두 객체 삭제
         Destroy(gameObject);
     }
@@ -62,13 +60,21 @@ public class ObjectMerge : MonoBehaviour
 
         if(other != null)      //타입 체크
         {
-            if ((this.level == other.level) && (level < maxLevel) && !isMerge && !other.isMerge)      //충돌 로직 체크
+            if ((this.level == other.level) && !isMerge && !other.isMerge)      //충돌 로직 체크
             {
-                if (this.transform.position.x < other.transform.position.x 
-                    || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
+                if(level < maxLevel)
                 {
-                    OnScoreChanged?.Invoke(score * 2);
-                    InstantiateNextLevelObject(other);
+                    if (this.transform.position.x < other.transform.position.x
+                    || this.transform.position.y < other.transform.position.y)    //한 오브젝트만 준비
+                    {
+                        OnScoreChanged?.Invoke(score * 2);
+                        InstantiateNextLevelObject(other);
+                    }
+                }
+                else
+                {
+                    Destroy(other.gameObject);
+                    Destroy(gameObject);
                 }
             }
         }

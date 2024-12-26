@@ -2,127 +2,146 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class Sound
-{
-    public string name;
-    public AudioClip clip;
-}
+using UnityEngine.Events;
 
 public class SoundManager : MonoBehaviour
 {
     #region SingleTon
-    private static GameObject instance;
+    private static SoundManager instance;
 
-    public GameObject Instance()
+    public void Instance()
     {
         if (instance == null)
-            instance = this.gameObject;
-
-        DontDestroyOnLoad(instance);
-        return instance;
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     #endregion
 
+    public static SoundManager getInstance()
+    {
+        return instance;
+    }
+    [SerializeField] private AudioClip[] memeClips;
+    private Dictionary<AudioClip, int>  ClipDictionary = new Dictionary<AudioClip, int>();
+
     private float volume = 0.5f;
 
-    [SerializeField] private Sound[] Bgms;
-    [SerializeField] private Sound[] Effects;
+    [SerializeField] private AudioSource currentPlayingBgm;
+    [SerializeField] private AudioSource currentPlayingEffect;
+    [SerializeField] private AudioSource currentPlayingMeme;
 
-    [SerializeField] private List<AudioSource> currentPlayingSounds;
+    public static UnityEvent<bool> OnPlaySounds = new UnityEvent<bool>();
+    public static UnityEvent<AudioClip> OnPlayEffect = new UnityEvent<AudioClip>();
+    public static UnityEvent<AudioClip> OnPlayMeme = new UnityEvent<AudioClip>();
 
-    public static event Action<string> OnPlayBgm;
-    public static event Action<string> OnPlayEffectSound;
+    private void Awake()
+    {
+        Instance();
+    }
 
     private void Start()
     {
+        InitClipDictionary();
         OnEnable();
         //PlayBgm("")
     }
 
     private void OnEnable()
     {
-        OnPlayBgm += PlayBgm;
-        OnPlayEffectSound += PlayEffectSound;
+        OnPlaySounds.AddListener(PauseSounds);
+        OnPlayEffect.AddListener(PlayEffect);
+        OnPlayMeme.AddListener(PlayMeme);
+    }
+
+    public float getVolume()
+    {
+        return volume;
+    }
+
+    private void InitClipDictionary()
+    {
+        for(int i = 0; i < memeClips.Length; i++)
+        {
+            ClipDictionary.Add(memeClips[i], i);
+        }
     }
 
     public void ChangeVolume(float newVolume)
     {
         volume = newVolume;
 
-        foreach(var source in currentPlayingSounds)
+        currentPlayingEffect.volume = volume;
+        currentPlayingBgm.volume = volume;
+        currentPlayingMeme.volume = volume;
+    }
+
+    public void PauseSounds(bool isPause)
+    {
+        if(isPause)
         {
-            source.volume = newVolume;
+            currentPlayingBgm.Pause();
+            currentPlayingMeme.Pause();
+        }
+        else
+        {
+            currentPlayingBgm.UnPause();
+            currentPlayingMeme.UnPause();
         }
     }
 
-    public void PauseSounds()
+    public void StopSounds()
     {
-        foreach(var source in currentPlayingSounds)
+        currentPlayingEffect.Stop();
+        currentPlayingMeme.Stop();
+    }
+
+    public void PlayBgm(AudioClip bgmClip)
+    {
+        if(bgmClip != null)
         {
-            source.Pause();
+            currentPlayingBgm.resource = bgmClip;
+            currentPlayingBgm.volume = volume;
+            currentPlayingBgm.loop = true;
+            currentPlayingBgm.Play();
         }
     }
 
-    public void ResumeSounds()
+    public void PlayEffect(AudioClip effectClip)
     {
-        foreach(var source in currentPlayingSounds)
+        if (effectClip != null)
         {
-            source.Play();
+            currentPlayingEffect.resource = effectClip;
+            currentPlayingEffect.volume = volume;
+            currentPlayingEffect.Play();
         }
     }
 
-    public void PlayBgm(string soundName)
+    public void PlayMeme(AudioClip memeClip)
     {
-        foreach (var bgm in Bgms)
+        if (memeClip != null)
         {
-            if (bgm.name == soundName)
+            if(currentPlayingMeme.resource != null && currentPlayingMeme.isPlaying)
             {
-                if (currentPlayingSounds.Count == 0)
+                if (ClipDictionary[memeClip] >= ClipDictionary[currentPlayingMeme.clip])
                 {
-                    AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                    currentPlayingSounds.Add(audioSource);
+                    currentPlayingMeme.resource = memeClip;
+                    currentPlayingMeme.volume = volume;
+                    currentPlayingMeme.Play();
                 }
-
-                currentPlayingSounds[0].clip = bgm.clip;
-                currentPlayingSounds[0].volume =  volume;
-                currentPlayingSounds[0].loop = true;
-                currentPlayingSounds[0].Play();
-                return;
             }
-        }
-
-        Debug.Log("배경 사운드 플레이 오류!!");
-    }
-
-    public void PlayEffectSound(string soundName)
-    {
-        foreach (var effect in Effects)
-        {
-            if (effect.name == soundName)
+            else
             {
-                AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-                audioSource.clip = effect.clip;
-                audioSource.volume = volume;
-                audioSource.Play();
-
-                currentPlayingSounds.Add(audioSource);
-
-                StartCoroutine(RemoveAudioSourceAfterPlay(audioSource));
-                return;
+                currentPlayingMeme.resource = memeClip;
+                currentPlayingMeme.volume = volume;
+                currentPlayingMeme.Play();
             }
         }
-
-        Debug.Log("효과 사운드 플레이 오류!!");
     }
 
-    private IEnumerator RemoveAudioSourceAfterPlay(AudioSource audioSource)
-    {
-        while (audioSource.isPlaying)
-            yield return null;
-
-        currentPlayingSounds.Remove(audioSource);
-        Destroy(audioSource);
-    }
 }

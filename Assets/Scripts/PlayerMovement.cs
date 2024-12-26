@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private HolderController holder;
     [SerializeField] private GameObject pauseUI;
-
+    [SerializeField] private GameObject gameOverUI;
 
     public static bool isPaused { get; private set; }
 
@@ -20,6 +20,12 @@ public class PlayerMovement : MonoBehaviour
     {
         rightMaxDistance = 3.1f;
         leftMaxDistance = -2.1f;
+        GameOverBoundary.OnGameOver.AddListener(PausedByGameOver);
+    }
+
+    private void OnDestroy()
+    {
+        GameOverBoundary.OnGameOver.RemoveListener(PausedByGameOver);
     }
 
     private void Update()
@@ -65,8 +71,22 @@ public class PlayerMovement : MonoBehaviour
             pauseUI.SetActive(false);
             Time.timeScale = 1f;
         }
+
+        SoundManager.OnPlaySounds?.Invoke(isPaused);
     }
 
-
-
+    public void PausedByGameOver()
+    {
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            gameOverUI.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            gameOverUI.SetActive(false);
+            Time.timeScale = 1f;
+        }
+    }
 }

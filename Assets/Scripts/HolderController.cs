@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HolderController : MonoBehaviour
 {
+    private bool isHolding = true;
+
     public NextMemeGenerator generator;
     private GameObject currentMeme;
 
@@ -21,6 +23,11 @@ public class HolderController : MonoBehaviour
         currentMeme.GetComponent<CircleCollider2D>().enabled = true;
         currentMeme.GetComponent<Rigidbody2D>().WakeUp();
         currentMeme.transform.SetParent(null);
+
+        if (isHolding)
+            SoundManager.OnPlayMeme?.Invoke(currentMeme.GetComponent<ObjectMerge>().GetMemeClip());
+
+        isHolding = false;
     }
 
     private void HoldNextMeme()
@@ -28,6 +35,8 @@ public class HolderController : MonoBehaviour
         currentMeme = Instantiate(generator.GetNextMeme(), transform);
         currentMeme.GetComponent<CircleCollider2D>().enabled = false;
         currentMeme.GetComponent<Rigidbody2D>().Sleep();
+
+        isHolding = true;
     }
 
 }

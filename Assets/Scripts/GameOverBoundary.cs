@@ -1,17 +1,26 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameOverBoundary : MonoBehaviour
 {
-    public static event Action onGameOver;
+    public static UnityEvent OnGameOver = new UnityEvent();
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private GameManager gameManager;
+
+    public void Start()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
     {
         ObjectMerge obm = collision.gameObject.GetComponent<ObjectMerge>();
 
         if(obm != null && obm.isCollided)
         {
-            onGameOver?.Invoke();
+            gameManager.SaveMaxScore();
+            OnGameOver?.Invoke();
         }
     }
 }

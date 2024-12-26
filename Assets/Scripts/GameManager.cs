@@ -23,21 +23,9 @@ public class MaxScoreList
 
 public class GameManager : MonoBehaviour
 {
-    #region SingleTon
-    private static GameObject instance;
-
-    public GameObject Instance()
-    {
-        if(instance == null)
-            instance = this.gameObject;
-
-        DontDestroyOnLoad(instance);
-        return instance;
-    }
-    #endregion
-
     [SerializeField] private int currentScore = 0;
     [SerializeField] private List<int> maxScoreList;
+    [SerializeField] SoundManager soundManager;
 
     private string filePath;
 
@@ -52,6 +40,28 @@ public class GameManager : MonoBehaviour
         LoadMaxScore();
     }
 
+    #region SingleTon
+    private static GameManager instance;
+
+    public void Instance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    #endregion
+
+    public static GameManager getInstance()
+    {
+        return instance;
+    }
+
     void Update()
     {
         if (Input.GetKey(KeyCode.B))
@@ -64,11 +74,13 @@ public class GameManager : MonoBehaviour
     public void LoadStartScene()
     {
         SceneManager.LoadScene("StartScene");
+        soundManager.StopSounds();
     }
 
     public void LoadGameScene()
     {
         StartCoroutine(LoadGameSceneAsync());
+        soundManager.StopSounds();
     }
 
     private IEnumerator LoadGameSceneAsync()
