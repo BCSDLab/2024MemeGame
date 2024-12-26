@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int currentScore = 0;
     [SerializeField] private List<int> maxScoreList;
+    [SerializeField] SoundManager soundManager;
 
     private string filePath;
 
@@ -73,11 +74,13 @@ public class GameManager : MonoBehaviour
     public void LoadStartScene()
     {
         SceneManager.LoadScene("StartScene");
+        soundManager.StopSounds();
     }
 
     public void LoadGameScene()
     {
         StartCoroutine(LoadGameSceneAsync());
+        soundManager.StopSounds();
     }
 
     private IEnumerator LoadGameSceneAsync()

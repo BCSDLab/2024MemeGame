@@ -1387,6 +1387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589745918}
   - component: {fileID: 589745919}
+  - component: {fileID: 589745920}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -1466,19 +1467,19 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1527383328}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: ChangeVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &589745920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589745917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d004b8ea7a86849adf621543c4c6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631020871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,6 +3149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentScore: 0
   maxScoreList: 000000000000000000000000
+  soundManager: {fileID: 1527383328}
 --- !u!4 &1351218717
 Transform:
   m_ObjectHideFlags: 0
@@ -3486,7 +3488,7 @@ GameObject:
   - component: {fileID: 1527383331}
   m_Layer: 0
   m_Name: SoundManager
-  m_TagString: Untagged
+  m_TagString: SoundManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3544,7 +3546,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

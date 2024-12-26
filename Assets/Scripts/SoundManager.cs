@@ -40,9 +40,13 @@ public class SoundManager : MonoBehaviour
     public static UnityEvent<AudioClip> OnPlayEffect = new UnityEvent<AudioClip>();
     public static UnityEvent<AudioClip> OnPlayMeme = new UnityEvent<AudioClip>();
 
-    private void Start()
+    private void Awake()
     {
         Instance();
+    }
+
+    private void Start()
+    {
         InitClipDictionary();
         OnEnable();
         //PlayBgm("")
@@ -84,6 +88,12 @@ public class SoundManager : MonoBehaviour
             currentPlayingBgm.UnPause();
             currentPlayingMeme.UnPause();
         }
+    }
+
+    public void StopSounds()
+    {
+        currentPlayingEffect.Stop();
+        currentPlayingMeme.Stop();
     }
 
     public void PlayBgm(AudioClip bgmClip)
