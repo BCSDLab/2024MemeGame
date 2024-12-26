@@ -23,19 +23,6 @@ public class MaxScoreList
 
 public class GameManager : MonoBehaviour
 {
-    #region SingleTon
-    private static GameObject instance;
-
-    public GameObject Instance()
-    {
-        if(instance == null)
-            instance = this.gameObject;
-
-        DontDestroyOnLoad(instance);
-        return instance;
-    }
-    #endregion
-
     [SerializeField] private int currentScore = 0;
     [SerializeField] private List<int> maxScoreList;
 
@@ -50,6 +37,28 @@ public class GameManager : MonoBehaviour
         ObjectMerge.OnScoreChanged += AddCurrentScore;
         Instance();
         LoadMaxScore();
+    }
+
+    #region SingleTon
+    private static GameManager instance;
+
+    public void Instance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    #endregion
+
+    public static GameManager getInstance()
+    {
+        return instance;
     }
 
     void Update()

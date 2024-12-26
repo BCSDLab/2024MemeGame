@@ -52,9 +52,4 @@ public class NextMemeGenerator : MonoBehaviour
         }
         return null;
     }
-
-    private void DebugFunc()
-    {
-        Debug.Log("next: " + nextMeme.name);
-    }
 }
