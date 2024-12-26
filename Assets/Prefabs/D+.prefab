@@ -13,9 +13,33 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: score
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: memeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f5a0c0fb6a6e9d4081c1215f7addb61, type: 3}
+    - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: effectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f5a0c0fb6a6e9d4081c1215f7addb61, type: 3}
+    - target: {fileID: 2496312040496943390, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: nextLevelObjectPrefab
       value: 
       objectReference: {fileID: 8686696596699930909, guid: 6745b711bd2d7bd4891aea7c456ebfd6, type: 3}
+    - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.08
+      objectReference: {fileID: 0}
     - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -56,6 +80,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4152514310916581650, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5131022284029381323, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 8423166614099132339, guid: 19933469442dcd84d9450e77b37a4211, type: 3}
     - target: {fileID: 5168264536905565269, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: m_Name
       value: D+
