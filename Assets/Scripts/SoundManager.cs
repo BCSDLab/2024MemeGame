@@ -7,18 +7,26 @@ using UnityEngine.Events;
 public class SoundManager : MonoBehaviour
 {
     #region SingleTon
-    private static GameObject instance;
+    private static SoundManager instance;
 
-    public GameObject Instance()
+    public void Instance()
     {
         if (instance == null)
-            instance = this.gameObject;
-
-        DontDestroyOnLoad(instance);
-        return instance;
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     #endregion
 
+    public static SoundManager getInstance()
+    {
+        return instance;
+    }
     [SerializeField] private AudioClip[] memeClips;
     private Dictionary<AudioClip, int>  ClipDictionary = new Dictionary<AudioClip, int>();
 
@@ -60,7 +68,7 @@ public class SoundManager : MonoBehaviour
         volume = newVolume;
 
         currentPlayingEffect.volume = volume;
-        currentPlayingMeme.volume = volume;
+        currentPlayingBgm.volume = volume;
         currentPlayingMeme.volume = volume;
     }
 

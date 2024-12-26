@@ -3093,6 +3093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64767cb6fc79b07479f7266c2271a5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startButton: {fileID: 1818963574}
   panel: {fileID: 43324953}
   explanationPage: {fileID: 333715054}
   settingPage: {fileID: 834662173}
