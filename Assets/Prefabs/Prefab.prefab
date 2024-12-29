@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -167,4 +167,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   score: 0
+  memeSound: {fileID: 0}
   nextLevelObjectPrefab: {fileID: 923300179591872574, guid: 7ba752e27e1f5da42bc8db7bd0278199, type: 3}
