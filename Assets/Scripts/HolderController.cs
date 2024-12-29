@@ -27,6 +27,8 @@ public class HolderController : MonoBehaviour
         if (isHolding)
             SoundManager.OnPlayMeme?.Invoke(currentMeme.GetComponent<ObjectMerge>().GetMemeClip());
 
+        currentMeme.GetComponent<MemeAnimator>()?.playAnimation();
+
         isHolding = false;
     }
 
