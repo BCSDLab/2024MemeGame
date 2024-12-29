@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: -7492799220112802222, guid: cedb6163e8f7d07469c1a08bc6e4b501, type: 3}
     - target: {fileID: 5131022284029381323, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: m_SortingOrder
-      value: -1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5168264536905565269, guid: b216a7f486ee27f4f987236f1c374e3c, type: 3}
       propertyPath: m_Name
@@ -4875,7 +4875,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
