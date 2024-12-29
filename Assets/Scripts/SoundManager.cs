@@ -64,11 +64,6 @@ public class SoundManager : MonoBehaviour
         return volume;
     }
 
-    public AudioSource getCurrentPlayingMeme()
-    {
-        return currentPlayingMeme;
-    }
-
     private void InitClipDictionary()
     {
         for(int i = 0; i < memeClips.Length; i++)
