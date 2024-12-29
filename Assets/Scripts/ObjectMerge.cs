@@ -39,8 +39,6 @@ public class ObjectMerge : MonoBehaviour
         newGrade.GetComponent<ObjectMerge>().isCollided = true;
         SoundManager.OnPlayMeme?.Invoke(newGrade.GetComponent<ObjectMerge>().GetMemeClip());
 
-        newGrade.GetComponent<MemeAnimator>()?.playAnimation();
-
         //µŒ ∞¥√º ªË¡¶
         Destroy(gameObject);
     }
@@ -54,8 +52,8 @@ public class ObjectMerge : MonoBehaviour
     {
         if(isCollided == false)
         {
-            OnIsCollidedChanged?.Invoke();
             isCollided = true;
+            OnIsCollidedChanged?.Invoke();
         }
 
         ObjectMerge other = collision.gameObject.GetComponent<ObjectMerge>();
