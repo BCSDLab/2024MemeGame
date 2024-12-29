@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        filePath = Application.persistentDataPath + "/Scores.json";
+        filePath = Application.dataPath + "/Saves/Scores.json";
         GameManager.UpdateScorePages.AddListener(LoadMaxScore);
         ObjectMerge.OnScoreChanged += AddCurrentScore;
         Instance();
