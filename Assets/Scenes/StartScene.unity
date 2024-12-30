@@ -4108,7 +4108,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0f5c23b48bce77d459329700bb2658a4, type: 3}
   - {fileID: 8300000, guid: 80fe63f64fe849e43ab1cd64fd170e10, type: 3}
   - {fileID: 8300000, guid: 9de9cf703ab992445af33ea725cb333f, type: 3}
-  - {fileID: 8300000, guid: ed606a91c07b1e34c9d4bbbc2a658f6e, type: 3}
+  - {fileID: 8300000, guid: 7af3cac210aae9044951df370fbe9dd7, type: 3}
   - {fileID: 8300000, guid: bb5891bd44caa1b4f91faa1ee9ed98ef, type: 3}
   - {fileID: 8300000, guid: 272f438dcec78414bb2a9157378bebb8, type: 3}
   currentPlayingBgm: {fileID: 1527383330}
