@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
@@ -10,21 +11,20 @@ using System.Collections;
 [System.Serializable]
 public class MaxScoreList
 {
-    [SerializeField]
-    private List<int> maxScores;
+    [SerializeField] private int[] maxScoreList;
 
-    public MaxScoreList(List<int> scores)
+    public MaxScoreList(int[] scores)
     {
-        maxScores = scores;
+        maxScoreList = scores;
     }
 
-    public List<int> GetMaxScores() { return maxScores; }
+    public int[] GetMaxScores() { return maxScoreList; }
 }
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private int currentScore = 0;
-    [SerializeField] private List<int> maxScoreList;
+    [SerializeField] private int[] maxScoreList = new int[4];
     [SerializeField] SoundManager soundManager;
 
     private string filePath;
@@ -62,15 +62,6 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.B))
-            SceneManager.LoadScene("StartScene");
-
-        if (Input.GetKey(KeyCode.S))
-            SaveMaxScore();
-    }
-
     public void LoadStartScene()
     {
         SceneManager.LoadScene("StartScene");
@@ -79,19 +70,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadGameScene()
     {
-        StartCoroutine(LoadGameSceneAsync());
+        SceneManager.LoadScene("GameScene");
         soundManager.StopSounds();
-    }
-
-    private IEnumerator LoadGameSceneAsync()
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("GameScene");
-
-        while (!asyncOperation.isDone)
-        {
-            yield return null;
-        }
-
         ScoreUI.MaxScoreChanged?.Invoke(maxScoreList[0]);
     }
 
@@ -113,7 +93,6 @@ public class GameManager : MonoBehaviour
 
         File.WriteAllText(filePath, jsonData);
 
-        //현재 점수 초기화
         currentScore = 0;
     }
 
@@ -124,10 +103,10 @@ public class GameManager : MonoBehaviour
             string jsonData = File.ReadAllText(filePath);
 
             maxScoreList = JsonUtility.FromJson<MaxScoreList>(jsonData).GetMaxScores();
-            
+
             if (maxScoreList == null)
             {
-                maxScoreList = new List<int> { 0, 0, 0 };
+                maxScoreList = new int[4] { 0, 0, 0, 0 };
             }
         }
 
@@ -136,9 +115,8 @@ public class GameManager : MonoBehaviour
 
     public void PushMaxScore(int score)
     {
-        maxScoreList.Add(score);
-        maxScoreList.Sort();
-        maxScoreList.Reverse();
-        maxScoreList.RemoveAt(maxScoreList.Count - 1);
+        maxScoreList[maxScoreList.Length - 1] = score;
+        Array.Sort(maxScoreList);
+        Array.Reverse(maxScoreList);
     }
 }

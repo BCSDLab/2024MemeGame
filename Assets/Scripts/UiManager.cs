@@ -14,7 +14,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject scorePage;
     [SerializeField] private TextMeshProUGUI[] maxScores;
 
-    public static UnityEvent<List<int>> SetMaxScoresUI = new UnityEvent<List<int>>();
+    public static UnityEvent<int[]> SetMaxScoresUI = new UnityEvent<int[]>();
 
     void Start()
     {
@@ -52,9 +52,9 @@ public class UiManager : MonoBehaviour
         scorePage.SetActive(!scorePage.activeSelf);
     }
 
-    public void SetMaxScores(List<int> maxScores)
+    public void SetMaxScores(int[] maxScores)
     {
-        for(int i = 0; i < maxScores.Count; i++)
+        for(int i = 0; i < this.maxScores.Length; i++)
         {
             this.maxScores[i].text = maxScores[i].ToString();
         }
