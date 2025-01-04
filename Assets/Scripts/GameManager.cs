@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
         soundManager.StopSounds();
-        ScoreUI.MaxScoreChanged?.Invoke(maxScoreList[0]);
     }
 
     public void AddCurrentScore(int score)
