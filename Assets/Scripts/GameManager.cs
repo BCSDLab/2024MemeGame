@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
         return instance;
     }
 
+    public int GetMaxScore()
+    {
+        return maxScoreList[0];
+    }
+
     public void LoadStartScene()
     {
         SceneManager.LoadScene("StartScene");

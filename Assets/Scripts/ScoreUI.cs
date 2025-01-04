@@ -12,10 +12,18 @@ public class ScoreUI : MonoBehaviour
     public static UnityEvent<int> CurrentScoreChanged = new UnityEvent<int>();
     public static UnityEvent<int> MaxScoreChanged = new UnityEvent<int>();
 
+    private GameManager gameManager;
+
     private void Awake()
     {
         CurrentScoreChanged.AddListener(ChangeCurrentScoreUI);
         MaxScoreChanged.AddListener(ChangeMaxScoreUI);
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.getInstance();
+        ChangeMaxScoreUI(gameManager.GetMaxScore());
     }
 
     private void OnDestroy()
